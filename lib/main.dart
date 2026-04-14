@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:natillera_flutter/env/env.dart';
-import 'package:natillera_flutter/screens/home.dart';
-
-
+import 'package:natillera_flutter/routes/app_router.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,13 +12,10 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Natillera',
+    return MaterialApp.router(
+      title: 'Natillera Flutter',
       debugShowCheckedModeBanner: Env.debugMode,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-      ),
-      home: const HomeScreen(),
+      routerConfig: AppRouter.router,
     );
   }
 }
