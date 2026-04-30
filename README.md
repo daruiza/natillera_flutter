@@ -15,6 +15,9 @@ For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
 
-
 SHA1 fingerprint:
 keytool -list -rfc -keystore ~/.android/debug.keystore -alias androiddebugkey -storepass android | openssl x509 -noout -fingerprint -sha1
+
+# Obtención de SHA1
+
+cd android; .\gradlew signingReport
