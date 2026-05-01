@@ -1,5 +1,6 @@
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:natillera_flutter/models/user.dart';
+import 'package:http/http.dart' as http;
 
 class GoogleAuthService {
   final GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email', 'profile']);
@@ -9,27 +10,44 @@ class GoogleAuthService {
     try {
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
 
-      //imprime el resultado del login
-      print('Google Sign-In result: $googleUser');
-
       if (googleUser != null) {
-        return User(
-          name: googleUser.displayName ?? 'Usuario',
-          email: googleUser.email,
-          pictureUrl: googleUser.photoUrl ?? '',
-        );
-      }
+        // 2. Obtener los tokens de la autenticación
+        final GoogleSignInAuthentication googleAuth =
+            await googleUser!.authentication;
 
-      // 2. Obtener los tokens de la autenticación
-      final GoogleSignInAuthentication googleAuth =
-          await googleUser!.authentication;
-      print(
-        'Google Sign-In tokens: accessToken=${googleAuth.accessToken}, idToken=${googleAuth.idToken}',
-      );
+        if (googleAuth.idToken != null) {
+          // 3. Enviar el token al backend para validación y obtener un token de acceso
+          final accessToken = await getAccessToken(googleAuth.idToken!);
+          if (accessToken != null) {
+            return User(
+              name: googleUser.displayName ?? 'Usuario',
+              email: googleUser.email,
+              pictureUrl: googleUser.photoUrl ?? '',
+            );
+          }
+        }
+      }
     } catch (e) {
       print('Error durante Google Sign-In: $e');
     }
     return null;
+  }
+
+  // Solicitud token de acceso a backend
+  Future<String?> getAccessToken(String idToken) async {
+    // 4. Enviar al backend
+    final response = await http.post(
+      Uri.parse('https://tu-api.com/auth/google'),
+      body: {'token': idToken},
+    );
+
+    if (response.statusCode == 200) {
+      // Suponiendo que el backend devuelve el token de acceso en el cuerpo de la respuesta
+      return response.body;
+    } else {
+      print('Error al obtener token de acceso: ${response.statusCode}');
+      return null;
+    }
   }
 
   /// Cierra la sesión activa
