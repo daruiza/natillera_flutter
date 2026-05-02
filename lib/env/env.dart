@@ -20,6 +20,9 @@ abstract class Env {
   @EnviedField(varName: 'ID_CLIENT')
   static const String idClient = _Env.idClient;
 
+  @EnviedField(varName: 'WEB_ID_CLIENT')
+  static const String webIdClient = _Env.webIdClient;
+
   @EnviedField(varName: 'PROJECT_ID')
   static const String projectId = _Env.projectId;
 

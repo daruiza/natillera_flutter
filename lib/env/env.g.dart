@@ -14,10 +14,13 @@ final class _Env {
 
   static const String apiKey = 'tu_llave_secreta_123';
 
-  static const String packageName = 'com.example.natillera_flutter';
+  static const String packageName = 'com.natillera.app';
 
   static const String idClient =
       '15028378529-6otf5r8mf7bmht55okk0q5jmmau8f37t.apps.googleusercontent.com';
+
+  static const String webIdClient =
+      '15028378529-gku2op9qu2lgoh2ipacj7p3vmgicht7s.apps.googleusercontent.com';
 
   static const String projectId = 'decent-trail-488017-d0';
 
