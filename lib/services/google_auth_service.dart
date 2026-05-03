@@ -38,8 +38,7 @@ class GoogleAuthService {
         final GoogleSignInAuthentication googleAuth =
             await googleUser.authentication;
 
-        print('Google Sign-In exitoso: ${googleUser.email}');
-        print('Google Auth: ${googleAuth.idToken}');
+        print('Google accessToken: ${googleAuth.accessToken}');
 
         if (googleAuth.idToken != null) {
           // 3. Enviar el token al backend para validación y obtener un token de acceso
