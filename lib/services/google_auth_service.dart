@@ -43,7 +43,7 @@ class GoogleAuthService {
         if (googleAuth.idToken != null) {
           // 3. Enviar el token al backend para validación y obtener un token de acceso
           print('ID Token recibido: ${googleAuth.idToken}');
-          final accessToken = await getAccessToken(googleAuth.idToken!);
+          final accessToken = await getAccessToken(googleAuth.idToken!);         
           if (accessToken != null) {
             print('Token de acceso recibido: $accessToken');
             return User(
@@ -79,6 +79,7 @@ class GoogleAuthService {
 
       if (response.statusCode == 200) {
         // Suponiendo que el backend devuelve el token de acceso en el cuerpo de la respuesta
+        print('Respuesta del backend: ${response.body}');
         return response.body;
       } else {
         print('Error al obtener token de acceso: ${response.statusCode}');
@@ -91,7 +92,9 @@ class GoogleAuthService {
       );
       return null;
     }
-  }
+  }  
+
+  
 
   /// Cierra la sesión activa
   Future<void> signOut() async {
